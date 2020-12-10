@@ -2,6 +2,25 @@ import { Component } from "react";
 import {Navbar, InputGroup, FormControl, Button} from "react-bootstrap";
 
 export default class OrderBranching extends Component {
+    constructor(props){
+        super(props);
+        this.onChangeOrderValue = this.onChangeOrderValue.bind(this);
+        this.onClickSetValues = this.onClickSetValues.bind(this);
+        this.state = {
+            orderValue: null
+        }
+    }
+
+    onChangeOrderValue(e){
+        this.setState({
+            orderValue: e.target.value
+        });
+    }
+
+    onClickSetValues() {
+        this.props.getOrderAndBranchingOrder(this.state.orderValue);
+    }
+
     render() {
         return (
             <Navbar bg="light" expand="lg" class="row">
@@ -13,28 +32,15 @@ export default class OrderBranching extends Component {
                             </InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl
-                        value={this.props.orderValue}
-                        placeholder="e.g. 2"
-                        type="text"
-                        />
-                    </InputGroup>
-                </div>
-                <div class ="col-3">
-                    <InputGroup class="col-3 px-5">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text>
-                                Branching Order &nbsp;<i>k</i>
-                            </InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl
-                        value={this.props.branchingOrderValue}
+                        value={this.state.orderValue}
+                        onChange={this.onChangeOrderValue}
                         placeholder="e.g. 2"
                         type="text"
                         />
                     </InputGroup>
                 </div>
                 <div class="col-2">
-                    <Button variant="outline-dark" onClick={this.props.onSetValues}>Set Values</Button>
+                    <Button variant="outline-dark" onClick={this.onClickSetValues}>Set Value</Button>
                 </div>
                 <div class="col-4"></div>
             </Navbar>
