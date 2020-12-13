@@ -34,7 +34,7 @@ export default class OrderBranching extends Component {
                         <FormControl
                         value={this.state.orderValue}
                         onChange={this.onChangeOrderValue}
-                        placeholder="e.g. 2"
+                        placeholder="default 1 (this would mean min 1 value and max 2 values in one node)"
                         type="text"
                         />
                     </InputGroup>
