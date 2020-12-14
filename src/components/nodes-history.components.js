@@ -7,22 +7,27 @@ export default class NodesHistory extends Component {
         this.nodeList = this.nodeList.bind(this);
     }
     nodeList() {
-        if(this.props.historyNodes.length == 0) {
+        if(this.props.nodeHistory.length == 0) {
             return [];
         }
-        return this.props.historyNodes.map((num) => {
+        return this.props.nodeHistory.map((num,index) => {
             let type;
-            if(num.type == "none") {
+            switch(num.type) {
+            case "none":
                 type = "secondary";
-            }
-            if(num.type == "insert") {
+                break;
+            case "insert":
                 type = "success";
-            }
-            if(num.type == "delete") {
+                break;
+            case "delete":
                 type = "danger";
+                break;
+            default:
+                type="secondary";
+                break;
             }
             return (
-                <Badge pill variant={type}>{num.valueNum}</Badge>
+                <Badge pill key={index} variant={type}>{num.numVal}</Badge>
             );
         })
     }

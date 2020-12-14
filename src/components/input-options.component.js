@@ -1,5 +1,5 @@
 import { Component } from "react";
-import {Navbar, InputGroup, FormControl, Button} from "react-bootstrap";
+import {Navbar, InputGroup, FormControl, Button, Badge} from "react-bootstrap";
 
 function ImportFile(props) {
     let fileReader;
@@ -7,10 +7,12 @@ function ImportFile(props) {
     const handleFileRead = () => {
         const content = fileReader.result;
         props.callback(content);
-        console.log(content);
     };
 
     const handleFileChange = (file) => {
+        if(file == null || file == undefined) {
+            return;
+        }
         fileReader = new FileReader();
         fileReader.onloadend = handleFileRead;
         fileReader.readAsText(file);
@@ -53,7 +55,8 @@ export default class InputOptions extends Component {
             newNumbersFileInput: null,
             numOfNewNumbers: null,
             bottomBorder: null,
-            topBorder: null
+            topBorder: null,
+            showInvalidComb: false
         };
     }
 
@@ -70,6 +73,9 @@ export default class InputOptions extends Component {
     }
 
     onClickAddTextInput() {
+        if(this.state.newNumbersTextInput == null || this.state.newNumbersTextInput == undefined || this.state.newNumbersTextInput == "") {
+            return;
+        }
         let nextNums = this.state.newNumbersTextInput.split(',').map(function(item) {
             return parseInt(item.trim());
         });
@@ -80,6 +86,9 @@ export default class InputOptions extends Component {
     }
 
     onClickAddFileInput() {
+        if(this.state.newNumbersFileInput == null || this.state.newNumbersFileInput == undefined) {
+            return;
+        }
         let nextNums = this.state.newNumbersFileInput.split(',').map(function(item) {
             return parseInt(item.trim());
         });
@@ -113,6 +122,12 @@ export default class InputOptions extends Component {
     }
 
     onClickGenerateAndAdd() {
+        if(this.state.numOfNewNumbers > this.state.topBorder - this.state.bottomBorder + 1) {
+            this.setState({
+                showInvalidComb: true
+            })
+            return;
+        }
         let randNums = [];
         for ( let index = 0; index < this.state.numOfNewNumbers; index++) {
             let randNum;
@@ -203,10 +218,13 @@ export default class InputOptions extends Component {
                             />
                         </InputGroup>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <Button variant="outline-primary" onClick={this.onClickGenerateAndAdd}>
                             Generate & Add
                         </Button>
+                    </div>
+                    <div class="col-1">
+                        <Badge hidden={!this.state.showInvalidComb} variant="danger">Invalid Combination</Badge>
                     </div>
                 </Navbar>
             </>

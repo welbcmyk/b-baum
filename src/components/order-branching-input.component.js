@@ -7,7 +7,7 @@ export default class OrderBranching extends Component {
         this.onChangeOrderValue = this.onChangeOrderValue.bind(this);
         this.onClickSetValues = this.onClickSetValues.bind(this);
         this.state = {
-            orderValue: null
+            orderValue: ""
         }
     }
 
@@ -24,7 +24,7 @@ export default class OrderBranching extends Component {
     render() {
         return (
             <Navbar bg="light" expand="lg" class="row">
-                <div class ="col-3">
+                <div class="col-3">
                     <InputGroup>
                         <InputGroup.Prepend>
                             <InputGroup.Text>
@@ -34,7 +34,7 @@ export default class OrderBranching extends Component {
                         <FormControl
                         value={this.state.orderValue}
                         onChange={this.onChangeOrderValue}
-                        placeholder="default 1 (this would mean min 1 value and max 2 values in one node)"
+                        placeholder="default 2 ([m-1, 2m-1]keys, [m, 2m]children)"
                         type="text"
                         />
                     </InputGroup>

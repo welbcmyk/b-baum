@@ -10,9 +10,9 @@ export default class NextNodes extends Component {
         if(this.props.nextNodes.length == 0) {
             return [];
         }
-        return this.props.nextNodes.map((num) => {
+        return this.props.nextNodes.map((num, index) => {
             return (
-                <Badge pill variant="secondary">{num}</Badge>
+                <Badge pill key={index} variant="secondary">{num}</Badge>
             );
         })
     }
