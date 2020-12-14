@@ -74,6 +74,9 @@ export default class InputOptions extends Component {
             return parseInt(item.trim());
         });
         this.props.getNextNodes(nextNums);
+        this.setState({
+            newNumbersTextInput: ""
+        });
     }
 
     onClickAddFileInput() {
